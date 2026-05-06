@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_crono"
+        android:icon="@drawable/ic_crono"
+        android:title="Crono" />
+    <item
+        android:id="@+id/nav_feder"
+        android:icon="@drawable/ic_shield"
+        android:title="Feder." />
+    <item
+        android:id="@+id/nav_buscar"
+        android:icon="@drawable/ic_search"
+        android:title="Buscar" />
+    <item
+        android:id="@+id/nav_config"
+        android:icon="@drawable/ic_settings"
+        android:title="Config." />
+</menu>

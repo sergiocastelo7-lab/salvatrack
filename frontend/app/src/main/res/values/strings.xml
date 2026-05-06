@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SalvaTrack</string>
+    <string name="nav_crono">Cronómetro</string>
+    <string name="nav_competiciones">Competiciones</string>
+    <string name="nav_ranking">Ranking</string>
+    <string name="nav_perfil">Perfil</string>
+</resources>
