@@ -9,4 +9,5 @@
     <color name="card_dark">#1E1E1E</color>
     <color name="text_secondary">#6B7280</color>
     <color name="red_stop">#E53935</color>
+    <color name="nav_bg">#FFFFFF</color>
 </resources>

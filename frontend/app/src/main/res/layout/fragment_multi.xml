@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <!-- Barra de controles globales -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <!-- Botón Iniciar/Parar todos -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMultiIniciar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Iniciar"
+                app:icon="@drawable/ic_play"
+                app:cornerRadius="12dp"
+                app:backgroundTint="#1976D2"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="12dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+            <!-- Selector número de jugadores -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="#F1F5F9"
+                app:cardElevation="0dp"
+                android:layout_marginEnd="12dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="4dp">
+
+                    <TextView
+                        android:id="@+id/btnNum2"
+                        android:layout_width="36dp"
+                        android:layout_height="match_parent"
+                        android:text="2"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#64748B"/>
+
+                    <TextView
+                        android:id="@+id/btnNum3"
+                        android:layout_width="36dp"
+                        android:layout_height="match_parent"
+                        android:text="3"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#64748B"/>
+
+                    <TextView
+                        android:id="@+id/btnNum4"
+                        android:layout_width="36dp"
+                        android:layout_height="match_parent"
+                        android:text="4"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#1976D2"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Reset global -->
+            <ImageButton
+                android:id="@+id/btnMultiReset"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_refresh"
+                android:background="@drawable/bg_lap_number"
+                android:backgroundTint="#F1F5F9"
+                android:layout_marginEnd="8dp"/>
+
+            <!-- Guardar -->
+            <ImageButton
+                android:id="@+id/btnMultiSave"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_save"
+                android:background="@drawable/bg_lap_number"
+                android:backgroundTint="#E3F2FD"/>
+        </LinearLayout>
+
+        <!-- Tarjetas de jugadores (se generan dinámicamente) -->
+        <LinearLayout
+            android:id="@+id/llJugadoresMulti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+    </LinearLayout>
+</ScrollView>
