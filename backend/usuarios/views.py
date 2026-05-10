@@ -217,3 +217,38 @@ def get_tiempos(request):
     for t in tiempos:
         t['fecha'] = t['fecha'].isoformat()
     return JsonResponse({'tiempos': tiempos})
+
+
+@csrf_exempt
+def editar_tiempo(request, tiempo_id):
+    if request.method != 'PUT':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    try:
+        tiempo = CronoTiempo.objects.get(id=tiempo_id, user=user)
+    except CronoTiempo.DoesNotExist:
+        return error('Tiempo no encontrado.', 404)
+    data = json_body(request)
+    if 'nombre' in data:
+        tiempo.nombre = data['nombre']
+    if 'prueba' in data:
+        tiempo.prueba = data['prueba']
+    if 'piscina' in data:
+        tiempo.piscina = data['piscina']
+    tiempo.save()
+    return JsonResponse({'ok': True, 'mensaje': 'Tiempo actualizado.'})
+
+
+@csrf_exempt
+def eliminar_tiempo(request, tiempo_id):
+    if request.method != 'DELETE':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    deleted, _ = CronoTiempo.objects.filter(user=user, id=tiempo_id).delete()
+    if deleted:
+        return JsonResponse({'ok': True})
+    return error('No encontrado.', 404)

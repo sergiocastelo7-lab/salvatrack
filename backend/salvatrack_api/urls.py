@@ -38,4 +38,6 @@ urlpatterns = [
     # Crono
     path('api/crono/guardar/', views.guardar_tiempo, name='guardar_tiempo'),
     path('api/crono/tiempos/', views.get_tiempos, name='get_tiempos'),
+    path('api/crono/editar/<int:tiempo_id>/', views.editar_tiempo, name='editar_tiempo'),
+    path('api/crono/eliminar/<int:tiempo_id>/', views.eliminar_tiempo, name='eliminar_tiempo'),
 ]
