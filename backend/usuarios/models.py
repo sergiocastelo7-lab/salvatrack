@@ -24,3 +24,16 @@ class Favorito(models.Model):
 
     def __str__(self):
         return f"{self.user.username} → {self.nombre}"
+
+
+class BusquedaReciente(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='busquedas')
+    query = models.CharField(max_length=200)
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-fecha']
+        unique_together = ['user', 'query']
+
+    def __str__(self):
+        return f"{self.user.username}: {self.query}"

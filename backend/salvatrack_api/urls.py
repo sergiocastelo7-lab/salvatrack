@@ -22,7 +22,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Auth
-    path('api/register/',       views.register,      name='register'),
-    path('api/login/',          views.login,          name='login'),
+    path('api/register/', views.register, name='register'),
+    path('api/login/', views.login, name='login'),
     path('api/delete-account/', views.delete_account, name='delete_account'),
+
+    # Favoritos
+    path('api/favoritos/', views.get_favoritos, name='get_favoritos'),
+    path('api/favoritos/toggle/', views.toggle_favorito, name='toggle_favorito'),
+
+    # Historial
+    path('api/historial/add/', views.add_busqueda, name='add_busqueda'),
+    path('api/historial/remove/', views.remove_busqueda, name='remove_busqueda'),
+    path('api/historial/clear/', views.clear_historial, name='clear_historial'),
 ]

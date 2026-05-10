@@ -4,7 +4,9 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password, check_password
-from .models import UserProfile
+from .models import UserProfile, Favorito, BusquedaReciente
+
+MAX_HISTORIAL = 15
 
 
 def get_user_from_token(request):
@@ -32,16 +34,20 @@ def error(msg, status=400):
 
 def perfil_data(user):
     try:
-        profile  = user.profile
+        profile = user.profile
         is_admin = profile.is_admin
-        token    = profile.session_token
+        token = profile.session_token
     except UserProfile.DoesNotExist:
         is_admin = False
-        token    = None
+        token = None
+    favoritos = list(user.favoritos.values('nombre', 'ano_nacimiento', 'club', 'categoria', 'genero'))
+    historial = list(user.busquedas.values_list('query', flat=True)[:MAX_HISTORIAL])
     return {
-        'token':    token,
-        'nombre':   user.username,
+        'token': token,
+        'nombre': user.username,
         'is_admin': is_admin,
+        'favoritos': favoritos,
+        'historial': historial,
     }
 
 
@@ -49,22 +55,18 @@ def perfil_data(user):
 def register(request):
     if request.method != 'POST':
         return error('Método no permitido', 405)
-
-    data     = json_body(request)
-    nombre   = data.get('nombre', '').strip()
+    data = json_body(request)
+    nombre = data.get('nombre', '').strip()
     password = data.get('password', '').strip()
-
     if not nombre or not password:
         return error('El nombre y la contraseña son obligatorios.')
     if len(password) < 4:
         return error('La contraseña debe tener al menos 4 caracteres.')
     if User.objects.filter(username=nombre).exists():
         return error('Ya existe una cuenta con ese nombre.', 409)
-
-    user  = User.objects.create(username=nombre, password=make_password(password))
+    user = User.objects.create(username=nombre, password=make_password(password))
     token = str(uuid.uuid4())
     UserProfile.objects.create(user=user, session_token=token)
-
     return JsonResponse(perfil_data(user), status=201)
 
 
@@ -72,27 +74,21 @@ def register(request):
 def login(request):
     if request.method != 'POST':
         return error('Método no permitido', 405)
-
-    data     = json_body(request)
-    nombre   = data.get('nombre', '').strip()
+    data = json_body(request)
+    nombre = data.get('nombre', '').strip()
     password = data.get('password', '').strip()
-
     if not nombre or not password:
         return error('El nombre y la contraseña son obligatorios.')
-
     try:
         user = User.objects.get(username=nombre)
     except User.DoesNotExist:
         return error('Nombre o contraseña incorrectos.', 401)
-
     if not check_password(password, user.password):
         return error('Nombre o contraseña incorrectos.', 401)
-
     token = str(uuid.uuid4())
     profile, _ = UserProfile.objects.get_or_create(user=user)
     profile.session_token = token
     profile.save()
-
     return JsonResponse(perfil_data(user), status=200)
 
 
@@ -100,10 +96,85 @@ def login(request):
 def delete_account(request):
     if request.method != 'DELETE':
         return error('Método no permitido', 405)
-
     user = get_user_from_token(request)
     if not user:
         return error('No autorizado.', 401)
-
     user.delete()
     return JsonResponse({'mensaje': 'Cuenta eliminada correctamente.'})
+
+
+@csrf_exempt
+def toggle_favorito(request):
+    if request.method != 'POST':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    data = json_body(request)
+    nombre = data.get('nombre', '').strip()
+    if not nombre:
+        return error('Falta el nombre del atleta.')
+    fav = Favorito.objects.filter(user=user, nombre=nombre).first()
+    if fav:
+        fav.delete()
+        return JsonResponse({'is_favorito': False})
+    Favorito.objects.create(
+        user=user,
+        nombre=nombre,
+        ano_nacimiento=data.get('ano_nacimiento'),
+        club=data.get('club', ''),
+        categoria=data.get('categoria', ''),
+        genero=data.get('genero', ''),
+    )
+    return JsonResponse({'is_favorito': True})
+
+
+def get_favoritos(request):
+    if request.method != 'GET':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    favs = list(user.favoritos.values('nombre', 'ano_nacimiento', 'club', 'categoria', 'genero'))
+    return JsonResponse({'favoritos': favs})
+
+
+@csrf_exempt
+def add_busqueda(request):
+    if request.method != 'POST':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    query = json_body(request).get('query', '').strip().upper()
+    if len(query) < 2:
+        return error('Mínimo 2 caracteres.')
+    BusquedaReciente.objects.filter(user=user, query=query).delete()
+    BusquedaReciente.objects.create(user=user, query=query)
+    ids_viejos = list(BusquedaReciente.objects.filter(user=user).values_list('id', flat=True)[MAX_HISTORIAL:])
+    if ids_viejos:
+        BusquedaReciente.objects.filter(id__in=ids_viejos).delete()
+    return JsonResponse({'ok': True})
+
+
+@csrf_exempt
+def remove_busqueda(request):
+    if request.method != 'DELETE':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    query = json_body(request).get('query', '').strip().upper()
+    BusquedaReciente.objects.filter(user=user, query=query).delete()
+    return JsonResponse({'ok': True})
+
+
+@csrf_exempt
+def clear_historial(request):
+    if request.method != 'DELETE':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    user.busquedas.all().delete()
+    return JsonResponse({'ok': True})
