@@ -34,4 +34,8 @@ urlpatterns = [
     path('api/historial/add/', views.add_busqueda, name='add_busqueda'),
     path('api/historial/remove/', views.remove_busqueda, name='remove_busqueda'),
     path('api/historial/clear/', views.clear_historial, name='clear_historial'),
+
+    # Crono
+    path('api/crono/guardar/', views.guardar_tiempo, name='guardar_tiempo'),
+    path('api/crono/tiempos/', views.get_tiempos, name='get_tiempos'),
 ]

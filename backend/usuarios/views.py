@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password, check_password
-from .models import UserProfile, Favorito, BusquedaReciente
+from .models import UserProfile, Favorito, BusquedaReciente, CronoTiempo
 
 MAX_HISTORIAL = 15
 
@@ -178,3 +178,42 @@ def clear_historial(request):
         return error('No autorizado.', 401)
     user.busquedas.all().delete()
     return JsonResponse({'ok': True})
+
+
+@csrf_exempt
+def guardar_tiempo(request):
+    if request.method != 'POST':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    data = json_body(request)
+    tiempo_ms = data.get('tiempo_ms')
+    if tiempo_ms is None:
+        return error('Falta el tiempo.')
+    t = CronoTiempo.objects.create(
+        user=user,
+        nombre=data.get('nombre', ''),
+        prueba=data.get('prueba', ''),
+        piscina=data.get('piscina', ''),
+        modo=data.get('modo', CronoTiempo.MODO_INDIVIDUAL),
+        jugador=data.get('jugador', ''),
+        tiempo_ms=tiempo_ms,
+        parciales=data.get('parciales', []),
+    )
+    return JsonResponse({'id': t.id, 'mensaje': 'Tiempo guardado.'}, status=201)
+
+
+def get_tiempos(request):
+    if request.method != 'GET':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    limite = int(request.GET.get('limit', 5))
+    tiempos = list(user.tiempos.values(
+        'id', 'nombre', 'prueba', 'piscina', 'modo',
+        'jugador', 'tiempo_ms', 'fecha', 'parciales')[:limite])
+    for t in tiempos:
+        t['fecha'] = t['fecha'].isoformat()
+    return JsonResponse({'tiempos': tiempos})
