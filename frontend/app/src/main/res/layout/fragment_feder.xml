@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEF2F7"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="32dp">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Federaciones"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A2E"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- ======================== -->
+        <!-- BANNER PRÓXIMO EVENTO    -->
+        <!-- ======================== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_evento_banner"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp">
+
+            <!-- Cargando -->
+            <ProgressBar
+                android:id="@+id/pbEvento"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:indeterminateTint="#FFFFFF"
+                android:visibility="visible"/>
+
+            <!-- Contenido (se muestra cuando llegan los datos) -->
+            <LinearLayout
+                android:id="@+id/llEventoContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+                <!-- Caja de días -->
+                <LinearLayout
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/bg_lap_number"
+                    android:backgroundTint="#1565C0"
+                    android:layout_marginEnd="16dp">
+
+                    <TextView
+                        android:id="@+id/tvDias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="monospace"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="días"
+                        android:textSize="10sp"
+                        android:textColor="#B3D1FF"/>
+                </LinearLayout>
+
+                <!-- Info del evento -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!-- Etiqueta + Federación -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PRÓXIMO EVENTO"
+                            android:textSize="10sp"
+                            android:textColor="#B3D1FF"
+                            android:letterSpacing="0.05"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:id="@+id/tvFederacion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FESSGA"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#1A1A2E"
+                            android:background="@drawable/bg_lap_number"
+                            android:backgroundTint="#FFFFFF"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"/>
+                    </LinearLayout>
+
+                    <!-- Nombre del evento -->
+                    <TextView
+                        android:id="@+id/tvNombreEvento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:layout_marginBottom="4dp"/>
+
+                    <!-- Fecha -->
+                    <TextView
+                        android:id="@+id/tvFechaEvento"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textSize="12sp"
+                        android:textColor="#B3D1FF"/>
+                </LinearLayout>
+
+                <!-- Flecha -->
+                <LinearLayout
+                    android:id="@+id/btnVerEvento"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_lap_number"
+                    android:backgroundTint="#1565C0"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textSize="24sp"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ======================== -->
+        <!-- ACCESOS RÁPIDOS          -->
+        <!-- ======================== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACCESOS RÁPIDOS"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#A0AEC0"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Fila 1: Mínimas, Récords, Resultados -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMinimas"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:text="⚡"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#DBEAFE"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mínimas"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A2E"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardRecords"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:text="🏆"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#FEF3C7"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Récords"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A2E"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardResultados"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:text="📊"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#D1FAE5"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Resultados"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A2E"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <!-- Fila 2: Ranking (centrado) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardRanking"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:clickable="true"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="📈"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#EDE9FE"
+                        android:layout_marginEnd="12dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ranking"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A2E"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <!-- ======================== -->
+        <!-- CALENDARIO               -->
+        <!-- ======================== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CALENDARIO"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#A0AEC0"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Cabecera mes: < Mayo 2026 > -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:id="@+id/btnMesAnterior"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="‹"
+                        android:textSize="24sp"
+                        android:textColor="#1976D2"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"/>
+
+                    <TextView
+                        android:id="@+id/tvMesAnyo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mayo 2026"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A2E"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/btnMesSiguiente"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="›"
+                        android:textSize="24sp"
+                        android:textColor="#1976D2"
+                        android:gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </LinearLayout>
+
+                <!-- Cabecera días de la semana: L M X J V S D -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:orientation="horizontal">
+
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1" android:text="L" android:gravity="center"
+                        android:textSize="12sp" android:textStyle="bold" android:textColor="#A0AEC0"/>
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1" android:text="M" android:gravity="center"
+                        android:textSize="12sp" android:textStyle="bold" android:textColor="#A0AEC0"/>
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1" android:text="X" android:gravity="center"
+                        android:textSize="12sp" android:textStyle="bold" android:textColor="#A0AEC0"/>
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1" android:text="J" android:gravity="center"
+                        android:textSize="12sp" android:textStyle="bold" android:textColor="#A0AEC0"/>
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1" android:text="V" android:gravity="center"
+                        android:textSize="12sp" android:textStyle="bold" android:textColor="#A0AEC0"/>
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1" android:text="S" android:gravity="center"
+                        android:textSize="12sp" android:textStyle="bold" android:textColor="#A0AEC0"/>
+                    <TextView android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1" android:text="D" android:gravity="center"
+                        android:textSize="12sp" android:textStyle="bold" android:textColor="#A0AEC0"/>
+                </LinearLayout>
+
+                <!-- Grid de días (se genera desde Java) -->
+                <LinearLayout
+                    android:id="@+id/llCalendarGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>

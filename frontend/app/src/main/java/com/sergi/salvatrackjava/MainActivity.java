@@ -19,8 +19,12 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
         bottomNav.setSelectedItemId(R.id.nav_crono);
         bottomNav.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.nav_crono) {
+            int id = item.getItemId();
+            if (id == R.id.nav_crono) {
                 loadFragment(new CronoFragment());
+                return true;
+            } else if (id == R.id.nav_feder) {
+                loadFragment(new FederFragment());
                 return true;
             }
             return false;
