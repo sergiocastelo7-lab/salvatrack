@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog_rounded"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="24dp">
+
+    <!-- Cabecera: icono + "N eventos" -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="📅"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@drawable/bg_lap_number"
+            android:backgroundTint="#DBEAFE"
+            android:layout_marginEnd="12dp"/>
+
+        <TextView
+            android:id="@+id/tvNumEventos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 evento"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A2E"/>
+    </LinearLayout>
+
+    <!-- Contenedor de tarjetas de eventos -->
+    <LinearLayout
+        android:id="@+id/llEventosDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Botón Cerrar -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCerrarDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:text="Cerrar"
+        android:textColor="#FFFFFF"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:backgroundTint="#1976D2"
+        app:cornerRadius="24dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+</LinearLayout>

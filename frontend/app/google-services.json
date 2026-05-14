@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "327092047546",
+    "project_id": "salvamentoapp2",
+    "storage_bucket": "salvamentoapp2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327092047546:android:fa9335052c3bca0e21bc83",
+        "android_client_info": {
+          "package_name": "com.sergi.salvatrackjava"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkiZmA9ZuGhj7Q5dYPrNpuQrhJCwI1pnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327092047546:android:1f4fd96a09c5b6cd21bc83",
+        "android_client_info": {
+          "package_name": "com.sergio.salvamento_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkiZmA9ZuGhj7Q5dYPrNpuQrhJCwI1pnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
