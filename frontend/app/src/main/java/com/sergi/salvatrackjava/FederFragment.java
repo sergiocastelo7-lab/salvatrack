@@ -74,8 +74,9 @@ public class FederFragment extends Fragment {
         tvFederacion    = view.findViewById(R.id.tvFederacion);
 
         // Pulsar el banner → abrir Evento en Directo
-        view.findViewById(R.id.btnVerEvento).setOnClickListener(v -> {});
-
+        view.findViewById(R.id.btnVerEvento).setOnClickListener(v -> {
+            if (proximoEvento != null) abrirEventoDirecto(proximoEvento);
+        });
         // Calendario
         tvMesAnyo = view.findViewById(R.id.tvMesAnyo);
         llCalendarGrid = view.findViewById(R.id.llCalendarGrid);
@@ -90,10 +91,18 @@ public class FederFragment extends Fragment {
         });
 
         // Accesos rápidos → links desde Firebase config/links_estaticos
-        view.findViewById(R.id.cardMinimas).setOnClickListener(v -> {});
-        view.findViewById(R.id.cardRecords).setOnClickListener(v -> {});
-        view.findViewById(R.id.cardResultados).setOnClickListener(v -> {});
-        view.findViewById(R.id.cardRanking).setOnClickListener(v -> {});
+        view.findViewById(R.id.cardMinimas).setOnClickListener(v ->
+                FederBottomSheet.newInstance("Mínimas", "minimas_gal", "minimas_esp")
+                        .show(getChildFragmentManager(), "minimas"));
+        view.findViewById(R.id.cardRecords).setOnClickListener(v ->
+                FederBottomSheet.newInstance("Récords", "records_gal", "records_esp")
+                        .show(getChildFragmentManager(), "records"));
+        view.findViewById(R.id.cardResultados).setOnClickListener(v ->
+                FederBottomSheet.newInstance("Resultados", "resultados_gal", "resultados_esp")
+                        .show(getChildFragmentManager(), "resultados"));
+        view.findViewById(R.id.cardRanking).setOnClickListener(v ->
+                FederBottomSheet.newInstance("Ranking", "ranking_esp", "ranking_esp")
+                        .show(getChildFragmentManager(), "ranking"));
 
         cargarEventos();
     }
@@ -326,5 +335,12 @@ public class FederFragment extends Fragment {
 
     private int dpToPx(int dp) {
         return Math.round(dp * requireContext().getResources().getDisplayMetrics().density);
+    }
+
+    private void abrirEventoDirecto(Evento evento) {
+        requireActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragmentContainer, EventoDirectoFragment.newInstance(evento))
+                .addToBackStack(null)
+                .commit();
     }
 }

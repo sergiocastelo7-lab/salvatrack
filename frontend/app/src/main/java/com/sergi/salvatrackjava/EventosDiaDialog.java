@@ -101,6 +101,11 @@ public class EventosDiaDialog extends DialogFragment {
         // Navegar a Evento en Directo al pulsar la tarjeta
         card.setOnClickListener(v -> {
             dismiss();
+            EventoDirectoFragment fragment = EventoDirectoFragment.newInstance(evento);
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         // Nombre del evento
