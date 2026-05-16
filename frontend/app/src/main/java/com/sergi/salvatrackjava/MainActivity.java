@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_feder) {
                 loadFragment(new FederFragment());
                 return true;
+            } else if (id == R.id.nav_buscar) {
+                loadFragment(new BuscarFragment());
+                return true;
             }
             return false;
         });
