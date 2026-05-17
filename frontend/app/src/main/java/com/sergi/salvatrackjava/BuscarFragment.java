@@ -424,7 +424,6 @@ public class BuscarFragment extends Fragment {
         return Math.round(dp * requireContext().getResources().getDisplayMetrics().density);
     }
 
-    // Workaround for 14sp literal in code
     private static final float textSize14sp = 14f;
 
     @Override
