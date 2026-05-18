@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEF2F7"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="32dp">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Configuración"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A2E"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- ======================== -->
+        <!-- SECCIÓN: APLICACIÓN      -->
+        <!-- ======================== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="APLICACIÓN"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#A0AEC0"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Fila: Versión -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <TextView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:text="ⓘ"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#F1F5F9"
+                        android:textColor="#64748B"
+                        android:layout_marginEnd="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Versión"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#1A1A2E"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1.0.0"
+                            android:textSize="13sp"
+                            android:textColor="#A0AEC0"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Divisor -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F1F5F9"
+                    android:layout_marginStart="76dp"/>
+
+                <!-- Fila: SalvaTrack -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="72dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:text="🏊"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#DBEAFE"
+                        android:layout_marginEnd="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SalvaTrack"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#1A1A2E"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cronómetro y gestión de resultados de Salvamento Acuático"
+                            android:textSize="13sp"
+                            android:textColor="#A0AEC0"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ======================== -->
+        <!-- SECCIÓN: CUENTA          -->
+        <!-- ======================== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CUENTA"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#A0AEC0"
+            android:letterSpacing="0.1"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Nombre de usuario -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="👤"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#DBEAFE"
+                        android:layout_marginEnd="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Usuario"
+                            android:textSize="12sp"
+                            android:textColor="#A0AEC0"/>
+
+                        <TextView
+                            android:id="@+id/tvNombreUsuario"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#1A1A2E"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F1F5F9"
+                    android:layout_marginStart="72dp"/>
+
+                <!-- Botón cerrar sesión -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCerrarSesion"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Cerrar sesión"
+                    android:textColor="#1976D2"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="@android:color/transparent"
+                    app:cornerRadius="0dp"
+                    app:strokeWidth="0dp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F1F5F9"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <!-- Botón borrar cuenta -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBorrarCuenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Borrar cuenta"
+                    android:textColor="#E53935"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="@android:color/transparent"
+                    app:cornerRadius="0dp"
+                    app:strokeWidth="0dp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ======================== -->
+        <!-- SECCIÓN: ADMIN           -->
+        <!-- ======================== -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFF8E1"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:text="⚡"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_lap_number"
+                        android:backgroundTint="#FEF3C7"
+                        android:layout_marginEnd="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ADMINISTRADOR"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#92400E"
+                            android:letterSpacing="0.08"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Panel de control de la app"
+                            android:textSize="12sp"
+                            android:textColor="#B45309"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAbrirAdmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Editar Evento en Directo"
+                    android:textColor="#FFFFFF"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    app:backgroundTint="#D97706"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_refresh"
+                    app:iconTint="#FFFFFF"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ========================== -->
+        <!-- SECCIÓN: HISTORIAL TIEMPOS -->
+        <!-- ========================== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="HISTORIAL DE TIEMPOS"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#A0AEC0"
+                android:letterSpacing="0.1"/>
+
+            <!-- Selector cantidad -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_lap_number"
+                android:backgroundTint="#F1F5F9"
+                android:padding="3dp">
+
+                <TextView android:id="@+id/chip5"
+                    android:layout_width="36dp" android:layout_height="match_parent"
+                    android:text="5" android:gravity="center" android:textSize="12sp"
+                    android:textStyle="bold" android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_lap_number"
+                    android:backgroundTint="#1976D2"
+                    android:clickable="true" android:focusable="true"/>
+
+                <TextView android:id="@+id/chip10"
+                    android:layout_width="36dp" android:layout_height="match_parent"
+                    android:text="10" android:gravity="center" android:textSize="12sp"
+                    android:textColor="#64748B"
+                    android:clickable="true" android:focusable="true"/>
+
+                <TextView android:id="@+id/chip20"
+                    android:layout_width="36dp" android:layout_height="match_parent"
+                    android:text="20" android:gravity="center" android:textSize="12sp"
+                    android:textColor="#64748B"
+                    android:clickable="true" android:focusable="true"/>
+
+                <TextView android:id="@+id/chip50"
+                    android:layout_width="36dp" android:layout_height="match_parent"
+                    android:text="50" android:gravity="center" android:textSize="12sp"
+                    android:textColor="#64748B"
+                    android:clickable="true" android:focusable="true"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <!-- Estado vacío -->
+            <LinearLayout
+                android:id="@+id/layoutEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="40dp">
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ic_refresh"
+                    android:alpha="0.35"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sin tiempos guardados"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#64748B"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Los tiempos guardados desde el cronómetro aparecen aquí."
+                    android:textSize="13sp"
+                    android:textColor="#A0AEC0"
+                    android:gravity="center"
+                    android:lineSpacingExtra="2dp"/>
+            </LinearLayout>
+
+            <!-- Lista de tiempos -->
+            <LinearLayout
+                android:id="@+id/layoutHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:visibility="gone"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
