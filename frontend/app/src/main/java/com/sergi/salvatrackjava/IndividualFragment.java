@@ -30,6 +30,9 @@ public class IndividualFragment extends Fragment {
     private long elapsedTime = 0L;
     private long lastLapTime = 0L;
     private boolean isRunning = false;
+    // Lista de parciales: {numero, tiempo_ms, split_ms}
+    private final java.util.List<long[]> listaParciales = new java.util.ArrayList<>();
+
     private final Runnable updateRunnable = new Runnable() {
         @Override
         public void run() {
@@ -64,6 +67,18 @@ public class IndividualFragment extends Fragment {
 
         btnReset.setOnClickListener(v -> resetCrono());
 
+        // Botón guardar
+        View btnGuardar = view.findViewById(R.id.btnGuardar);
+        if (btnGuardar != null) {
+            btnGuardar.setOnClickListener(v -> {
+                if (elapsedTime == 0L && !isRunning) return;
+                long tiempoActual = isRunning
+                        ? elapsedTime + (System.currentTimeMillis() - startTime)
+                        : elapsedTime;
+                GuardarCronoDialog.newInstance(tiempoActual, listaParciales, "individual", "")
+                        .show(getChildFragmentManager(), "guardar");
+            });
+        }
 
         btnParcial.setOnClickListener(v -> {
             if (!isRunning) return;
@@ -71,6 +86,9 @@ public class IndividualFragment extends Fragment {
             long current = elapsedTime + (System.currentTimeMillis() - startTime);
             long split   = (lastLapTime == 0L) ? current : current - lastLapTime;
             lastLapTime  = current;
+
+            // Guardar en lista
+            listaParciales.add(0, new long[]{contadorParciales, current, split});
 
             View lapView = LayoutInflater.from(requireContext())
                     .inflate(R.layout.item_parcial, llParciales, false);
@@ -111,6 +129,7 @@ public class IndividualFragment extends Fragment {
         startTime    = 0L;
         lastLapTime  = 0L;
         contadorParciales = 1;
+        listaParciales.clear();
         tvTime.setText("00:00");
         tvMillis.setText(".00");
         btnStartStop.setImageResource(R.drawable.ic_play);

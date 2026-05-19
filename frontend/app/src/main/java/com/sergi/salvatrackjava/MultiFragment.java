@@ -72,9 +72,19 @@ public class MultiFragment extends Fragment {
 
         btnMultiIniciar.setOnClickListener(v -> toggleGlobalMulti());
         btnMultiReset.setOnClickListener(v -> resetGlobalMulti());
-        view.findViewById(R.id.btnMultiSave).setOnClickListener(v ->
+        view.findViewById(R.id.btnMultiSave).setOnClickListener(v -> {
+            boolean hayTiempos = false;
+            for (JugadorMulti j : listaJugadores) {
+                if (j.elapsedTime > 0 || j.isRunning) { hayTiempos = true; break; }
+            }
+            if (!hayTiempos) {
                 android.widget.Toast.makeText(requireContext(),
-                        "Guardar — Próximamente", android.widget.Toast.LENGTH_SHORT).show());
+                        "No hay tiempos para guardar", android.widget.Toast.LENGTH_SHORT).show();
+                return;
+            }
+            GuardarCronoMultiDialog.newInstance(listaJugadores)
+                    .show(getChildFragmentManager(), "guardar_multi");
+        });
 
         configurarSelectorMulti();
         generarTarjetasMulti(4);
@@ -150,6 +160,9 @@ public class MultiFragment extends Fragment {
                 long split   = (jugador.lastLapTime == 0L) ? current : current - jugador.lastLapTime;
                 jugador.lastLapTime = current;
 
+                // Guardar parcial en lista
+                jugador.parciales.add(0, new long[]{jugador.lapCount, current, split});
+
                 TextView tvLap = new TextView(requireContext());
                 tvLap.setText(jugador.lapCount + ". " + formatTime(current) + "   +" + formatTime(split));
                 tvLap.setTextSize(11f);
@@ -223,6 +236,7 @@ public class MultiFragment extends Fragment {
             j.startTime   = 0L;
             j.lastLapTime = 0L;
             j.lapCount    = 1;
+            j.parciales.clear();
             j.tvTime.setText("00:00.00");
             j.btnPlay.setImageResource(R.drawable.ic_play);
             j.llLaps.removeAllViews();

@@ -13,4 +13,5 @@ public class JugadorMulti {
     public boolean isRunning = false;
     public long lastLapTime = 0L;
     public int lapCount = 1;
+    public java.util.List<long[]> parciales = new java.util.ArrayList<>();
 }
