@@ -51,8 +51,11 @@ def perfil_data(user):
     }
 
 
+# AUTH
+
 @csrf_exempt
 def register(request):
+    """POST /api/register/"""
     if request.method != 'POST':
         return error('Método no permitido', 405)
     data = json_body(request)
@@ -72,6 +75,7 @@ def register(request):
 
 @csrf_exempt
 def login(request):
+    """POST /api/login/"""
     if request.method != 'POST':
         return error('Método no permitido', 405)
     data = json_body(request)
@@ -94,6 +98,7 @@ def login(request):
 
 @csrf_exempt
 def delete_account(request):
+    """DELETE /api/account/"""
     if request.method != 'DELETE':
         return error('Método no permitido', 405)
     user = get_user_from_token(request)
@@ -103,8 +108,11 @@ def delete_account(request):
     return JsonResponse({'mensaje': 'Cuenta eliminada correctamente.'})
 
 
+# FAVORITOS
+
 @csrf_exempt
 def toggle_favorito(request):
+    """POST /api/favoritos/toggle/"""
     if request.method != 'POST':
         return error('Método no permitido', 405)
     user = get_user_from_token(request)
@@ -119,8 +127,7 @@ def toggle_favorito(request):
         fav.delete()
         return JsonResponse({'is_favorito': False})
     Favorito.objects.create(
-        user=user,
-        nombre=nombre,
+        user=user, nombre=nombre,
         ano_nacimiento=data.get('ano_nacimiento'),
         club=data.get('club', ''),
         categoria=data.get('categoria', ''),
@@ -130,6 +137,7 @@ def toggle_favorito(request):
 
 
 def get_favoritos(request):
+    """GET /api/favoritos/"""
     if request.method != 'GET':
         return error('Método no permitido', 405)
     user = get_user_from_token(request)
@@ -139,116 +147,118 @@ def get_favoritos(request):
     return JsonResponse({'favoritos': favs})
 
 
-@csrf_exempt
-def add_busqueda(request):
-    if request.method != 'POST':
-        return error('Método no permitido', 405)
-    user = get_user_from_token(request)
-    if not user:
-        return error('No autorizado.', 401)
-    query = json_body(request).get('query', '').strip().upper()
-    if len(query) < 2:
-        return error('Mínimo 2 caracteres.')
-    BusquedaReciente.objects.filter(user=user, query=query).delete()
-    BusquedaReciente.objects.create(user=user, query=query)
-    ids_viejos = list(BusquedaReciente.objects.filter(user=user).values_list('id', flat=True)[MAX_HISTORIAL:])
-    if ids_viejos:
-        BusquedaReciente.objects.filter(id__in=ids_viejos).delete()
-    return JsonResponse({'ok': True})
-
+# HISTORIAL
 
 @csrf_exempt
-def remove_busqueda(request):
-    if request.method != 'DELETE':
-        return error('Método no permitido', 405)
+def historial(request):
+    """
+    POST /api/historial/  → añadir búsqueda (body: {query})
+    DELETE /api/historial/ → borrar todo el historial
+    """
     user = get_user_from_token(request)
     if not user:
         return error('No autorizado.', 401)
-    query = json_body(request).get('query', '').strip().upper()
-    BusquedaReciente.objects.filter(user=user, query=query).delete()
-    return JsonResponse({'ok': True})
 
-
-@csrf_exempt
-def clear_historial(request):
-    if request.method != 'DELETE':
-        return error('Método no permitido', 405)
-    user = get_user_from_token(request)
-    if not user:
-        return error('No autorizado.', 401)
-    user.busquedas.all().delete()
-    return JsonResponse({'ok': True})
-
-
-@csrf_exempt
-def guardar_tiempo(request):
-    if request.method != 'POST':
-        return error('Método no permitido', 405)
-    user = get_user_from_token(request)
-    if not user:
-        return error('No autorizado.', 401)
-    data = json_body(request)
-    tiempo_ms = data.get('tiempo_ms')
-    if tiempo_ms is None:
-        return error('Falta el tiempo.')
-    t = CronoTiempo.objects.create(
-        user=user,
-        nombre=data.get('nombre', ''),
-        prueba=data.get('prueba', ''),
-        piscina=data.get('piscina', ''),
-        modo=data.get('modo', CronoTiempo.MODO_INDIVIDUAL),
-        jugador=data.get('jugador', ''),
-        tiempo_ms=tiempo_ms,
-        parciales=data.get('parciales', []),
-    )
-    return JsonResponse({'id': t.id, 'mensaje': 'Tiempo guardado.'}, status=201)
-
-
-def get_tiempos(request):
-    if request.method != 'GET':
-        return error('Método no permitido', 405)
-    user = get_user_from_token(request)
-    if not user:
-        return error('No autorizado.', 401)
-    limite = int(request.GET.get('limit', 5))
-    tiempos = list(user.tiempos.values(
-        'id', 'nombre', 'prueba', 'piscina', 'modo',
-        'jugador', 'tiempo_ms', 'fecha', 'parciales')[:limite])
-    for t in tiempos:
-        t['fecha'] = t['fecha'].isoformat()
-    return JsonResponse({'tiempos': tiempos})
-
-
-@csrf_exempt
-def editar_tiempo(request, tiempo_id):
-    if request.method != 'PUT':
-        return error('Método no permitido', 405)
-    user = get_user_from_token(request)
-    if not user:
-        return error('No autorizado.', 401)
-    try:
-        tiempo = CronoTiempo.objects.get(id=tiempo_id, user=user)
-    except CronoTiempo.DoesNotExist:
-        return error('Tiempo no encontrado.', 404)
-    data = json_body(request)
-    if 'nombre' in data:
-        tiempo.nombre = data['nombre']
-    if 'prueba' in data:
-        tiempo.prueba = data['prueba']
-    if 'piscina' in data:
-        tiempo.piscina = data['piscina']
-    tiempo.save()
-    return JsonResponse({'ok': True, 'mensaje': 'Tiempo actualizado.'})
-
-
-@csrf_exempt
-def eliminar_tiempo(request, tiempo_id):
-    if request.method != 'DELETE':
-        return error('Método no permitido', 405)
-    user = get_user_from_token(request)
-    if not user:
-        return error('No autorizado.', 401)
-    deleted, _ = CronoTiempo.objects.filter(user=user, id=tiempo_id).delete()
-    if deleted:
+    if request.method == 'POST':
+        query = json_body(request).get('query', '').strip().upper()
+        if len(query) < 2:
+            return error('Mínimo 2 caracteres.')
+        BusquedaReciente.objects.filter(user=user, query=query).delete()
+        BusquedaReciente.objects.create(user=user, query=query)
+        ids_viejos = list(BusquedaReciente.objects.filter(user=user).values_list('id', flat=True)[MAX_HISTORIAL:])
+        if ids_viejos:
+            BusquedaReciente.objects.filter(id__in=ids_viejos).delete()
         return JsonResponse({'ok': True})
-    return error('No encontrado.', 404)
+
+    elif request.method == 'DELETE':
+        user.busquedas.all().delete()
+        return JsonResponse({'ok': True})
+
+    return error('Método no permitido', 405)
+
+
+@csrf_exempt
+def historial_item(request, query):
+    """DELETE /api/historial/<query>/ → eliminar una búsqueda concreta"""
+    if request.method != 'DELETE':
+        return error('Método no permitido', 405)
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+    BusquedaReciente.objects.filter(user=user, query=query.upper()).delete()
+    return JsonResponse({'ok': True})
+
+
+# CRONO
+
+@csrf_exempt
+def crono(request):
+    """
+    POST /api/crono/          → guardar tiempo (body: datos del tiempo)
+    GET  /api/crono/?limit=N  → listar tiempos
+    """
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+
+    if request.method == 'POST':
+        data = json_body(request)
+        tiempo_ms = data.get('tiempo_ms')
+        if tiempo_ms is None:
+            return error('Falta el tiempo.')
+        t = CronoTiempo.objects.create(
+            user=user,
+            nombre=data.get('nombre', ''),
+            prueba=data.get('prueba', ''),
+            piscina=data.get('piscina', ''),
+            modo=data.get('modo', CronoTiempo.MODO_INDIVIDUAL),
+            jugador=data.get('jugador', ''),
+            tiempo_ms=tiempo_ms,
+            parciales=data.get('parciales', []),
+        )
+        return JsonResponse({'id': t.id, 'mensaje': 'Tiempo guardado.'}, status=201)
+
+    elif request.method == 'GET':
+        limite = int(request.GET.get('limit', 5))
+        tiempos = list(user.tiempos.values(
+            'id', 'nombre', 'prueba', 'piscina', 'modo',
+            'jugador', 'tiempo_ms', 'fecha', 'parciales')[:limite])
+        for t in tiempos:
+            t['fecha'] = t['fecha'].isoformat()
+        return JsonResponse({'tiempos': tiempos})
+
+    return error('Método no permitido', 405)
+
+
+@csrf_exempt
+def crono_item(request, tiempo_id):
+    """
+    PUT    /api/crono/<id>/ → editar tiempo (body: {nombre, prueba, piscina})
+    DELETE /api/crono/<id>/ → eliminar tiempo
+    """
+    user = get_user_from_token(request)
+    if not user:
+        return error('No autorizado.', 401)
+
+    if request.method == 'PUT':
+        try:
+            tiempo = CronoTiempo.objects.get(id=tiempo_id, user=user)
+        except CronoTiempo.DoesNotExist:
+            return error('Tiempo no encontrado.', 404)
+        data = json_body(request)
+        if 'nombre' in data:
+            tiempo.nombre = data['nombre']
+        if 'prueba' in data:
+            tiempo.prueba = data['prueba']
+        if 'piscina' in data:
+            tiempo.piscina = data['piscina']
+        tiempo.save()
+        return JsonResponse({'ok': True, 'mensaje': 'Tiempo actualizado.'})
+
+    elif request.method == 'DELETE':
+        deleted, _ = CronoTiempo.objects.filter(user=user, id=tiempo_id).delete()
+        if deleted:
+            return JsonResponse({'ok': True})
+        return error('No encontrado.', 404)
+
+    return error('Método no permitido', 405)

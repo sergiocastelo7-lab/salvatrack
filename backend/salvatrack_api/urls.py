@@ -24,20 +24,17 @@ urlpatterns = [
     # Auth
     path('api/register/', views.register, name='register'),
     path('api/login/', views.login, name='login'),
-    path('api/delete-account/', views.delete_account, name='delete_account'),
+    path('api/account/', views.delete_account, name='delete_account'),
 
     # Favoritos
     path('api/favoritos/', views.get_favoritos, name='get_favoritos'),
     path('api/favoritos/toggle/', views.toggle_favorito, name='toggle_favorito'),
 
     # Historial
-    path('api/historial/add/', views.add_busqueda, name='add_busqueda'),
-    path('api/historial/remove/', views.remove_busqueda, name='remove_busqueda'),
-    path('api/historial/clear/', views.clear_historial, name='clear_historial'),
+    path('api/historial/', views.historial, name='historial'),
+    path('api/historial/<str:query>/', views.historial_item, name='historial_item'),
 
     # Crono
-    path('api/crono/guardar/', views.guardar_tiempo, name='guardar_tiempo'),
-    path('api/crono/tiempos/', views.get_tiempos, name='get_tiempos'),
-    path('api/crono/editar/<int:tiempo_id>/', views.editar_tiempo, name='editar_tiempo'),
-    path('api/crono/eliminar/<int:tiempo_id>/', views.eliminar_tiempo, name='eliminar_tiempo'),
+    path('api/crono/', views.crono, name='crono'),
+    path('api/crono/<int:tiempo_id>/', views.crono_item, name='crono_item'),
 ]

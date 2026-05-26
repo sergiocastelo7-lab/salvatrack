@@ -51,7 +51,7 @@ public class ApiClient {
 
     public static void deleteAccount(String token, Callback cb) {
         executor.execute(() -> {
-            try { ok(delete("/delete-account/", token, null), cb); }
+            try { ok(delete("/account/", token, null), cb); }
             catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)    { err("Error de conexión.", cb); }
         });
@@ -81,7 +81,7 @@ public class ApiClient {
             try {
                 JSONObject b = new JSONObject();
                 b.put("query", query);
-                ok(post("/historial/add/", b, token), cb);
+                ok(post("/historial/", b, token), cb);
             } catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)    { /* silencioso */ }
         });
@@ -90,9 +90,7 @@ public class ApiClient {
     public static void removeBusqueda(String token, String query, Callback cb) {
         executor.execute(() -> {
             try {
-                JSONObject b = new JSONObject();
-                b.put("query", query);
-                ok(delete("/historial/remove/", token, b), cb);
+                ok(delete("/historial/" + query + "/", token, null), cb);
             } catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)    { /* silencioso */ }
         });
@@ -100,7 +98,7 @@ public class ApiClient {
 
     public static void clearHistorial(String token, Callback cb) {
         executor.execute(() -> {
-            try { ok(delete("/historial/clear/", token, null), cb); }
+            try { ok(delete("/historial/", token, null), cb); }
             catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)  { /* silencioso */ }
         });
@@ -110,7 +108,7 @@ public class ApiClient {
 
     public static void guardarTiempo(String token, JSONObject datos, Callback cb) {
         executor.execute(() -> {
-            try { ok(post("/crono/guardar/", datos, token), cb); }
+            try { ok(post("/crono/", datos, token), cb); }
             catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)    { err("Error de conexión.", cb); }
         });
@@ -118,7 +116,7 @@ public class ApiClient {
 
     public static void getTiempos(String token, int limite, Callback cb) {
         executor.execute(() -> {
-            try { ok(get("/crono/tiempos/?limit=" + limite, token), cb); }
+            try { ok(get("/crono/?limit=" + limite, token), cb); }
             catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)    { err("Error de conexión.", cb); }
         });
@@ -132,7 +130,7 @@ public class ApiClient {
                 b.put("nombre",  nombre);
                 b.put("prueba",  prueba);
                 b.put("piscina", piscina);
-                ok(put("/crono/editar/" + id + "/", b, token), cb);
+                ok(put("/crono/" + id + "/", b, token), cb);
             } catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)    { err("Error de conexión.", cb); }
         });
@@ -140,7 +138,7 @@ public class ApiClient {
 
     public static void eliminarTiempo(String token, int id, Callback cb) {
         executor.execute(() -> {
-            try { ok(delete("/crono/eliminar/" + id + "/", token, null), cb); }
+            try { ok(delete("/crono/" + id + "/", token, null), cb); }
             catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)    { err("Error de conexión.", cb); }
         });
