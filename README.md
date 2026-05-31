@@ -1,4 +1,7 @@
 <h1 align="center">🏊 SalvaTrack</h1>
+<p align="center">
+  <img width="514" height="514" alt="logo_salvatrack" src="https://github.com/user-attachments/assets/1c633a17-5ae2-4dea-98e7-ce316be116c3" />
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/STATUS-COMPLETADO-green" />
@@ -20,8 +23,8 @@
 
 - [Descripción](#-descripción)
 - [Funcionalidades](#-funcionalidades)
-- [Tecnologías utilizadas](#-tecnologías-utilizadas)
-- [Arquitectura](#-arquitectura)
+- [Tecnologías utilizadas](#️-tecnologías-utilizadas)
+- [Arquitectura](#️-arquitectura)
 - [Instalación y ejecución](#-instalación-y-ejecución)
 - [Autor](#-autor)
 
@@ -94,28 +97,23 @@ El proyecto combina dos fuentes de datos:
 
 ## 🚀 Instalación y ejecución
 
-### Backend
+### 1. Clonar el repositorio
+```bash
+git clone https://github.com/tu-usuario/salvatrack.git
+```
 
+### 2. Arrancar el backend
 ```bash
 cd backend
-python -m venv .venv
-.venv\Scripts\activate
 pip install django django-cors-headers
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Servidor en `http://127.0.0.1:8000` · Admin en `http://127.0.0.1:8000/admin`
-
-### App Android
-
-1. Abrir la carpeta `frontend` con **Android Studio**.
-2. Añadir `google-services.json` de tu proyecto Firebase en `app/`.
-3. En `ApiClient.java` ajustar la URL:
-   - Emulador: `http://10.0.2.2:8000/api`
-   - Dispositivo físico: `http://<IP_LOCAL>:8000/api`
-4. Compilar y ejecutar.
+### 3. Ejecutar la app Android
+1. Abrir la carpeta `frontend` con Android Studio.
+2. Compilar y ejecutar en un emulador o dispositivo con Android 8.0+.
 
 ---
 
