@@ -106,6 +106,7 @@ git clone https://github.com/tu-usuario/salvatrack.git
 ```bash
 cd backend
 pip install django django-cors-headers
+python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
