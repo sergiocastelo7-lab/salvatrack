@@ -13,6 +13,7 @@ API REST para la gestión de usuarios, favoritos, historial de búsqueda y tiemp
 
 ```bash
 pip install django django-cors-headers
+python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
