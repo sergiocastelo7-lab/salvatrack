@@ -1,4 +1,7 @@
 <h1 align="center">🏊 SalvaTrack</h1>
+<p align="center">
+  <img width="514" height="514" alt="logo_salvatrack" src="https://github.com/user-attachments/assets/1c633a17-5ae2-4dea-98e7-ce316be116c3" />
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/STATUS-COMPLETADO-green" />
@@ -20,8 +23,8 @@
 
 - [Descripción](#-descripción)
 - [Funcionalidades](#-funcionalidades)
-- [Tecnologías utilizadas](#-tecnologías-utilizadas)
-- [Arquitectura](#-arquitectura)
+- [Tecnologías utilizadas](#️-tecnologías-utilizadas)
+- [Arquitectura](#️-arquitectura)
 - [Instalación y ejecución](#-instalación-y-ejecución)
 - [Autor](#-autor)
 
