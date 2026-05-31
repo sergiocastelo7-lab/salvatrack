@@ -90,7 +90,8 @@ public class ApiClient {
     public static void removeBusqueda(String token, String query, Callback cb) {
         executor.execute(() -> {
             try {
-                ok(delete("/historial/" + query + "/", token, null), cb);
+                String q = java.net.URLEncoder.encode(query, "UTF-8");
+                ok(delete("/historial/" + q + "/", token, null), cb);
             } catch (ApiException e) { err(e.getMessage(), cb); }
             catch (Exception e)    { /* silencioso */ }
         });
